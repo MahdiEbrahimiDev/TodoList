@@ -1,0 +1,92 @@
+﻿@model CoreLayer.DTOs.UserDTO.CreateUserDTO
+
+
+<div class="container py-5">
+
+
+    <div class="row justify-content-center">
+
+
+        <div class="col-md-6">
+
+
+            <div class="card shadow">
+
+
+                <div class="card-body">
+
+
+                    <h3 class="mb-4">
+                        ساخت کاربر جدید
+                    </h3>
+
+
+                    <form asp-action="Create" method="post">
+
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                نام کاربری
+                            </label>
+
+
+                            <input asp-for="Name"
+                                   class="form-control" />
+
+
+                            <span asp-validation-for="Name"
+                                  class="text-danger">
+                            </span>
+
+
+                        </div>
+
+
+
+                        <div class="mb-3">
+
+
+                            <label class="form-label">
+                                رمز عبور
+                            </label>
+
+
+                            <input asp-for="Password"
+                                   type="password"
+                                   class="form-control" />
+
+
+                            <span asp-validation-for="Password"
+                                  class="text-danger">
+                            </span>
+
+
+                        </div>
+
+
+
+                        <button class="btn btn-success w-100">
+
+                            <i class="bi bi-check"></i>
+
+                            ثبت کاربر
+
+                        </button>
+
+
+                    </form>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>

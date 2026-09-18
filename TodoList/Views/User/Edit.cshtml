@@ -1,0 +1,85 @@
+﻿@model CoreLayer.DTOs.UserDTO.UpdateUserDTO
+
+
+<div class="container py-5">
+
+
+    <div class="row justify-content-center">
+
+
+        <div class="col-md-6">
+
+
+            <div class="card shadow">
+
+
+                <div class="card-body">
+
+
+                    <h3>
+                        ویرایش کاربر
+                    </h3>
+
+
+
+                    <form asp-action="Edit" method="post">
+
+
+                        <input asp-for="Id" hidden />
+
+
+
+                        <div class="mb-3">
+
+                            <label>
+                                نام کاربری
+                            </label>
+
+
+                            <input asp-for="Name"
+                                   class="form-control" />
+
+                        </div>
+
+
+
+                        <div class="mb-3">
+
+
+                            <label>
+                                رمز عبور جدید
+                            </label>
+
+
+                            <input asp-for="Password"
+                                   type="password"
+                                   class="form-control" />
+
+
+                        </div>
+
+
+
+                        <button class="btn btn-primary w-100">
+
+                            ذخیره تغییرات
+
+                        </button>
+
+
+                    </form>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>

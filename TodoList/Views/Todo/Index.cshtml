@@ -1,0 +1,405 @@
+﻿@using CoreLayer.DTOs.TodoDTO
+@model CoreLayer.DTOs.TodoDTO.PaginationDTO<TodoDTO>
+
+@{
+    ViewData["Title"] = "Todo List";
+
+   var total = Model.TotalItems;
+
+var completed = Model.TotalCompleted;
+
+var pending = Model.TotalPending;
+}
+
+
+<div class="container-fluid px-4 todo-page">
+    @if (TempData["Message"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show">
+
+        @TempData["Message"]
+
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+        </button>
+
+    </div>
+}
+
+    <!-- Header -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h2 class="fw-bold">
+                مدیریت وظایف
+            </h2>
+
+            <p class="text-muted">
+                لیست و مدیریت تمام کارهای شما
+            </p>
+        </div>
+
+
+        <a asp-action="Create"
+           class="btn btn-primary create-btn">
+
+            <i class="bi bi-plus-circle"></i>
+
+            ایجاد تسک جدید
+
+        </a>
+
+
+    </div>
+
+    <div class="card shadow-sm border-0 mb-4">
+    <div class="card-body">
+
+        <form method="get" asp-action="Index">
+    <div class="row g-3 align-items-end">
+
+        <div class="col-md-4">
+            <label class="form-label fw-semibold">جستجو</label>
+            <input type="text"
+                   name="SearchText"
+                   value="@Context.Request.Query["SearchText"]"
+                   class="form-control"
+                   placeholder="عنوان یا توضیحات..." />
+        </div>
+
+        <div class="col-md-2">
+            <label class="form-label fw-semibold">اولویت</label>
+            <select name="Priority" class="form-select">
+                <option value="">همه</option>
+                <option value="Low">کم</option>
+                <option value="Medium">متوسط</option>
+                <option value="High">زیاد</option>
+            </select>
+        </div>
+
+        <div class="col-md-2">
+            <label class="form-label fw-semibold">وضعیت</label>
+            <select name="IsCompleted" class="form-select">
+                <option value="">همه</option>
+                <option value="true">انجام شده</option>
+                <option value="false">در انتظار</option>
+            </select>
+        </div>
+
+        <div class="col-md-2">
+            <label class="form-label fw-semibold">مرتب سازی</label>
+            <select name="Sort" class="form-select">
+                <option value="Newest">جدیدترین</option>
+                <option value="Oldest">قدیمی‌ترین</option>
+                <option value="PriorityDesc">اولویت زیاد</option>
+                <option value="PriorityAsc">اولویت کم</option>
+            </select>
+        </div>
+
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">
+                <i class="bi bi-funnel"></i> اعمال
+            </button>
+        </div>
+
+    </div>
+</form>
+
+    </div>
+</div>
+
+
+    <!-- Statistics Cards -->
+
+    <div class="row g-4 mb-4">
+
+
+        <div class="col-md-4">
+
+            <div class="stat-card blue-card">
+
+                <div>
+
+                    <span>
+                        کل تسک‌ها
+                    </span>
+
+                    <h3>
+                        @total
+                    </h3>
+
+                </div>
+
+
+                <i class="bi bi-list-task"></i>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="col-md-4">
+
+            <div class="stat-card green-card">
+
+                <div>
+
+                    <span>
+                        انجام شده
+                    </span>
+
+                    <h3>
+                        @completed
+                    </h3>
+
+                </div>
+
+
+                <i class="bi bi-check-circle"></i>
+
+
+            </div>
+
+        </div>
+
+
+
+
+        <div class="col-md-4">
+
+            <div class="stat-card orange-card">
+
+                <div>
+
+                    <span>
+                        باقی مانده
+                    </span>
+
+                    <h3>
+                        @pending
+                    </h3>
+
+                </div>
+
+
+                <i class="bi bi-clock"></i>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <!-- Todo Table -->
+
+
+    <div class="card todo-table-card">
+
+
+        <div class="card-body">
+
+
+            <div class="table-responsive">
+
+
+                <table class="table align-middle">
+
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                عنوان
+                            </th>
+
+                            <th>
+                                توضیحات
+                            </th>
+                            <th>
+    اولویت
+</th>
+                            <th>
+                                وضعیت
+                            </th>
+
+                            <th>
+                                عملیات
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+
+                    <tbody>
+
+
+                    @foreach(var item in Model.Items)
+                    {
+
+                        <tr class="todo-row">
+
+
+                            <td class="fw-semibold">
+
+                                @item.Title
+
+                            </td>
+
+
+                            <td>
+
+                                @item.Description
+
+                            </td>
+
+                            <td>
+
+    @switch (item.priorities)
+    {
+        case CoreLayer.Entities.TodoItem.Priority.High:
+            <span class="badge bg-danger">
+                زیاد
+            </span>
+            break;
+
+        case CoreLayer.Entities.TodoItem.Priority.Medium:
+            <span class="badge bg-warning text-dark">
+                متوسط
+            </span>
+            break;
+
+        default:
+            <span class="badge bg-success">
+                کم
+            </span>
+            break;
+    }
+
+</td>
+
+                            <td>
+
+
+                                @if(item.Iscompleted)
+                                {
+
+                                    <span class="badge bg-success">
+
+                                        <i class="bi bi-check"></i>
+
+                                        انجام شده
+
+                                    </span>
+
+                                }
+                                else
+                                {
+
+                                    <span class="badge bg-warning text-dark">
+
+                                        <i class="bi bi-hourglass"></i>
+
+                                        در انتظار
+
+                                    </span>
+
+                                }
+
+
+                            </td>
+
+
+
+                            <td>
+<a asp-action="Edit"
+                                   asp-route-id="@item.Id"
+                                   class="btn btn-sm btn-outline-success">
+
+                                    <i class="bi bi-pencil"></i>
+
+                                </a>
+                                <a asp-action="ChangeStatus"
+   asp-route-id="@item.Id"
+   class="btn btn-sm btn-outline-primary">
+
+    <i class="bi bi-check2-circle"></i>
+
+</a>
+
+
+                                <button onclick="deleteTodo(@item.Id)" class="btn btn-sm">
+                                    
+                                    <i class="bi bi-trash"></i>
+                                
+                                </button>
+
+
+                            </td>
+
+
+                        </tr>
+
+
+                    }
+
+
+                    </tbody>
+
+
+
+                </table>
+
+                @if(Model.TotalPages > 1)
+{
+    <nav>
+
+        <ul class="pagination justify-content-center">
+
+
+            @for(int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.CurrentPage ? "active":"")">
+
+                   <a class="page-link"
+   asp-action="Index"
+   asp-route-page="@i"
+   asp-route-SearchText="@Context.Request.Query["SearchText"]"
+   asp-route-Priority="@Context.Request.Query["Priority"]"
+   asp-route-IsCompleted="@Context.Request.Query["IsCompleted"]"
+   asp-route-Sort="@Context.Request.Query["Sort"]">
+
+    @i
+
+</a>
+
+                </li>
+            }
+
+
+        </ul>
+
+    </nav>
+}
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+</div>

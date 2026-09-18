@@ -1,0 +1,14 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TodoList.Models.ViewModels
+{
+    public class LoginViewModel
+    {
+        [Required(ErrorMessage = "نام کاربری الزامی است")]
+        public string Name { get; set; }
+
+        [Required(ErrorMessage = "رمز عبور الزامی است")]
+        public string Password { get; set; }
+        public bool RememberMe { get; set; }
+    }
+}

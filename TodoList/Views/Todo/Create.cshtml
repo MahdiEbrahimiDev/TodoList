@@ -1,0 +1,188 @@
+﻿@model CoreLayer.DTOs.TodoDTO.CreateTodoDTO
+
+@{
+    ViewData["Title"] = "Create Todo";
+}
+
+
+<div class="container py-4">
+
+
+    <div class="row justify-content-center">
+
+
+        <div class="col-lg-7">
+
+
+            <div class="form-card">
+
+
+                <div class="form-header">
+
+                    <div class="form-icon">
+
+                        <i class="bi bi-plus-circle"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <h3>
+                            ایجاد تسک جدید
+                        </h3>
+
+                        <p>
+                            یک وظیفه جدید به لیست خود اضافه کنید
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <form asp-action="Create" method="post">
+
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            عنوان تسک
+                        </label>
+
+
+                        <div class="input-group">
+
+                            <span class="input-group-text">
+
+                                <i class="bi bi-card-text"></i>
+
+                            </span>
+
+
+                            <input asp-for="Title"
+                                   class="form-control"
+                                   placeholder="مثلا یادگیری ASP.NET" />
+
+                        </div>
+
+
+                     @*    <span asp-validation-for="Title"
+                              class="text-danger">
+                        </span> *@
+
+
+                    </div>
+
+
+
+
+                    <div class="mb-4">
+
+
+                        <label class="form-label">
+                            توضیحات
+                        </label>
+
+
+                        <textarea asp-for="Description"
+                                  class="form-control textarea"
+                                  rows="5"
+                                  placeholder="توضیحات مربوط به تسک">
+                        </textarea>
+
+
+                        <span asp-validation-for="Description"
+                              class="text-danger">
+                        </span>
+
+
+                    </div>
+
+
+
+
+                    <div class="mb-4">
+
+
+                        <label class="form-label">
+                            اولویت
+                        </label>
+
+
+                        <select asp-for="priorities"
+                                class="form-select">
+
+
+                            <option value="">
+                                انتخاب کنید
+                            </option>
+
+
+                            <option value="1">
+                                کم
+                            </option>
+
+
+                            <option value="2">
+                                متوسط
+                            </option>
+
+
+                            <option value="3">
+                                زیاد
+                            </option>
+
+
+                        </select>
+
+
+                    </div>
+
+
+
+
+                    <div class="d-flex justify-content-between">
+
+
+                        <a asp-action="Index"
+                           class="btn btn-light">
+
+                            <i class="bi bi-arrow-right"></i>
+
+                            بازگشت
+
+                        </a>
+
+
+
+                        <button type="submit"
+                                class="btn btn-primary px-4">
+
+
+                            <i class="bi bi-check-circle"></i>
+
+                            ثبت تسک
+
+
+                        </button>
+
+
+                    </div>
+
+
+
+                </form>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
