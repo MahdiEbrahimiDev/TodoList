@@ -67,7 +67,7 @@ Example:
 
 ```json
 "ConnectionStrings": {
-  "DefaultConnection": "Server=.\\SQL2022;Database=TodoListDb;Trusted_Connection=True;TrustServerCertificate=True"
+  "DefaultConnection": "YOUR_CONNECTION_STRING"
 }
 ```
 
